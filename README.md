@@ -1,3 +1,4 @@
+````markdown name=esp32_tracking_system.md
 # ESP32 Tracking System  
 ### Acelerômetro (MPU6050) • GPS (GY-GPS6MU2) • LoRa SX1276/SX1278 • Sensor de Luminosidade (LDR/TSL2561)
 
@@ -13,7 +14,7 @@ Este README ensina exatamente o que você precisa fazer para **clonar o reposit�
 
 ---
 
-# 📦 1. Requisitos do Sistema
+## 📦 1. Requisitos do Sistema
 
 ### **Hardware**
 - ESP32 DevKit V1 (ou modelo equivalente)
@@ -30,23 +31,23 @@ Este README ensina exatamente o que você precisa fazer para **clonar o reposit�
 
 ---
 
-# 🔌 2. Instalando o Driver do ESP32
+## 🔌 2. Instalando o Driver do ESP32
 
 Existem dois chips USB usados no ESP32:
 
-### ✔ **CP2102 (mais comum)**
+### ✔ CP2102 (mais comum)
 Driver:  
-https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers
+[https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)
 
-### ✔ **CH340 (modelos mais baratos)**
+### ✔ CH340 (modelos mais baratos)
 Driver:  
-https://sparks.gogo.co.nz/ch340.html
+[https://sparks.gogo.co.nz/ch340.html](https://sparks.gogo.co.nz/ch340.html)
 
 ### Como saber qual você precisa?
 1. Conecte o ESP32 no PC.  
 2. Abra o **Gerenciador de Dispositivos** (Windows).  
 3. Vá em **Portas (COM & LPT)**.
-4. Veja o nome:
+4. Veja o nome apresentado:
    - **"CP210x USB to UART Bridge" → precisa do driver CP2102**
    - **"USB-SERIAL CH340" → precisa do driver CH340**
    - Se mostrar **COM detectado corretamente**, o driver já está instalado.
@@ -61,9 +62,9 @@ Abra a Arduino IDE e vá em:
 
 Em **Additional Boards Manager URLs** coloque:
 
+```
 https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-
-
+```
 
 Depois:
 
@@ -80,13 +81,16 @@ Após a instalação, selecione a placa:
 ## 📥 4. Clonando o Repositório (Git)
 
 Instale o Git se ainda não tiver:  
-https://git-scm.com/downloads
+[https://git-scm.com/downloads](https://git-scm.com/downloads)
 
 Depois abra o terminal e execute:
 
 ```bash
 git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
 cd SEU_REPOSITORIO
+```
+
+---
 
 ## 📚 5. Instalando as Bibliotecas Necessárias
 
@@ -116,53 +120,55 @@ Instale as seguintes bibliotecas:
 ## ⚡ 6. Ligações dos Sensores ao ESP32
 
 ### 📐 MPU6050 (I2C)
-| MPU6050 | ESP32 |
-|--------|-------|
-| VCC | 3.3V |
-| GND | GND |
-| SCL | GPIO **22** |
-| SDA | GPIO **21** |
+| MPU6050 | ESP32   |
+|---------|---------|
+| VCC     | 3.3V    |
+| GND     | GND     |
+| SCL     | GPIO 22 |
+| SDA     | GPIO 21 |
 
 ---
 
 ### 📍 GPS GY-GPS6MU2 (UART)
-| GPS | ESP32 |
-|------|--------|
-| VCC | 5V |
-| GND | GND |
-| TX | GPIO **16** (RX2) |
-| RX | GPIO **17** (TX2) |
+| GPS | ESP32      |
+|-----|------------|
+| VCC | 5V         |
+| GND | GND        |
+| TX  | GPIO 16 (RX2) |
+| RX  | GPIO 17 (TX2) |
 
 > O módulo NEO-6M utiliza **9600 baud** por padrão.
 
 ---
 
 ### 📡 Módulo LoRa SX1276/SX1278 (SPI)
-| LoRa | ESP32 |
-|------|--------|
-| VCC | 3.3V |
-| GND | GND |
-| SCK | GPIO **18** |
-| MISO | GPIO **19** |
-| MOSI | GPIO **23** |
-| NSS / CS | GPIO **5** |
-| RST | GPIO **14** |
-| DIO0 | GPIO **2** |
+| LoRa    | ESP32    |
+|---------|----------|
+| VCC     | 3.3V     |
+| GND     | GND      |
+| SCK     | GPIO 18  |
+| MISO    | GPIO 19  |
+| MOSI    | GPIO 23  |
+| NSS/CS  | GPIO 5   |
+| RST     | GPIO 14  |
+| DIO0    | GPIO 2   |
 
 ---
 
 ### ☀️ Sensor de Luminosidade
 
-#### **Opção A — LDR (analógico)**  
-Montagem:
+#### **Opção A — LDR (analógico)**
+Montagem:  
+> Conecte uma das pernas do LDR ao 3.3V e a outra ao GPIO **34** e ao resistor de 10k para GND.  
+> O ponto entre o LDR e o resistor vai para a entrada analógica do ESP32.
 
 #### **Opção B — TSL2561 (I2C)**
-| TSL2561 | ESP32 |
-|--------|--------|
-| VIN | 3.3V |
-| GND | GND |
-| SCL | GPIO **22** |
-| SDA | GPIO **21** |
+| TSL2561 | ESP32   |
+|---------|---------|
+| VIN     | 3.3V    |
+| GND     | GND     |
+| SCL     | GPIO 22 |
+| SDA     | GPIO 21 |
 
 ---
 
@@ -170,7 +176,7 @@ Montagem:
 
 1. Conecte o ESP32 no computador.  
 2. Selecione em **Tools → Board → ESP32 Dev Module**.  
-3. Selecione a porta:  
+3. Selecione a porta em:  
    `Tools → Port → COMX`
 
 Clique em **Upload**.
@@ -178,7 +184,7 @@ Clique em **Upload**.
 ### ⚠ Possível erro comum
 **“Failed to connect to ESP32: Timeout waiting for packet header”**
 
-➡ Solução: **Segure o botão BOOT** por 1–2 segundos quando o upload começar.
+➡ **Solução:** Segure o botão BOOT por 1–2 segundos quando o upload começar.
 
 ---
 
@@ -192,8 +198,11 @@ Selecione **115200 baud**.
 
 Exemplo de saída:
 
+```
 GPS: -5.04143, -42.47396, 0.7 m/s
 ACC: 0.10, 9.82, 0.40
 GYRO: 0.02, -0.01, 0.03
 Luminosidade: 264
 LoRa: pacote enviado
+```
+````
